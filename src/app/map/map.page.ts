@@ -52,7 +52,9 @@ export class MapPage implements OnInit {
 
   displayCircle(current_lat, current_lng) {
     // On supprime le dernier cercle
-    this.map.removeLayer(this.circle);
+    if (this.circle) {
+      this.map.removeLayer(this.circle);
+    }
 
     // Affichage du nouveau avec nouveau radius
     this.circle = circle({ lat: current_lat, lng: current_lng }, {
