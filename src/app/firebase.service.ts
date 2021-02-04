@@ -21,4 +21,12 @@ export class FirebaseService {
   public getRecipes(): Observable<any[]> {
     return this.fireStore.collection<any>('recipes').valueChanges({ idField: 'recipeId' });
   }
+
+  /**
+   * Récupération d'une recette par identifiant
+   * @param id Identifian de la recette
+   */
+  public getRecipeById(id: String) {
+    return this.fireStore.doc<any>('recipes/' + id);
+  }
 }
