@@ -12,7 +12,8 @@ export class MapPage implements OnInit {
   map: Map;
   marker: Marker;
   circle: Circle;
-  coords: Coordinates;
+  lat: any;
+  lng: any;
   km: any = 1;
 
   constructor(public geolocation: Geolocation, public router: Router) { }
@@ -25,7 +26,8 @@ export class MapPage implements OnInit {
     this.geolocation.getCurrentPosition().then((resp: Geoposition) => {
 
       // Sauvegarde des coordonnées
-      this.coords = resp.coords;
+      this.lat = resp.coords.latitude;
+      this.lng = resp.coords.longitude;
 
       // Affichage de la map
       this.map = new Map("map").setView([resp.coords.latitude, resp.coords.longitude], 10);
@@ -38,9 +40,12 @@ export class MapPage implements OnInit {
       // Affichage du marker avec la position
       this.marker = marker({ lat: resp.coords.latitude, lng: resp.coords.longitude }, {
         draggable: true
-      }).bindPopup("You are located here!").openPopup()
-        .on("dragend", () => {
-          this.displayCircle(this.marker.getLatLng().lat, this.marker.getLatLng().lng)
+      })
+        .on("dragend", (event) => {
+          let marker = event.target;
+          this.lat = marker.getLatLng().lat
+          this.lng = marker.getLatLng().lng
+          this.displayCircle()
         })
         .addTo(this.map)
 
@@ -50,14 +55,14 @@ export class MapPage implements OnInit {
     });
   }
 
-  displayCircle(current_lat, current_lng) {
+  displayCircle() {
     // On supprime le dernier cercle
-    if (this.circle) {
+    if (this.circle != null) {
       this.map.removeLayer(this.circle);
     }
 
     // Affichage du nouveau avec nouveau radius
-    this.circle = circle({ lat: current_lat, lng: current_lng }, {
+    this.circle = circle({ lat: this.lat, lng: this.lng }, {
       color: 'steelblue',
       radius: this.km * 1000,
       fillColor: 'steelblue',
@@ -70,11 +75,10 @@ export class MapPage implements OnInit {
    * @param event 
    */
   onChange(event) {
-    // Affichage du nouveau avec nouveau radius
-    this.displayCircle(this.coords.latitude, this.coords.longitude)
-
     // Sauvegarde du nombre de kilomètres maximum
     this.km = event.target.value
+
+    this.displayCircle()
   }
 
   /**
