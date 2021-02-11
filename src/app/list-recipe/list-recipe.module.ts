@@ -8,13 +8,17 @@ import { ListRecipePageRoutingModule } from './list-recipe-routing.module';
 
 import { ListRecipePage } from './list-recipe.page';
 
+import {RecipeComponent} from '../recipe/recipe.component'
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListRecipePageRoutingModule
+    ListRecipePageRoutingModule,
+
   ],
-  declarations: [ListRecipePage]
+  declarations: [ListRecipePage, RecipeComponent]
 })
 export class ListRecipePageModule {}
