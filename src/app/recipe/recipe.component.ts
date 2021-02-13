@@ -11,6 +11,9 @@ import { Recipe } from '../model/Recipe';
  */
 export class RecipeComponent implements OnInit {
 
+  /**
+   * l'objet recette (recipe en anglais)
+   */
   @Input() aRecipe: Recipe; 
 
 
