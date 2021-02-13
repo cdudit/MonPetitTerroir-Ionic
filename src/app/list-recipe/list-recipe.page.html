@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <recipe></recipe>
+  <recipe  *ngFor="let item of this.liste" 
+  [aRecipe]="item"></recipe>
 
 </ion-content>
