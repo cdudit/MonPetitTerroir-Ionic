@@ -34,24 +34,20 @@ export class ListRecipePage implements OnInit {
 
     //ici on recupere les recettes de firebase
     if(!this.list){
-      this.list=Array<Recipe>();
       this.serviceFirebase.getRecipes().subscribe(items=>this.list=items );
      
     }
-    
-    
-   
-  
+
   }
 
   /**
    * methode navigant vers l'affichage d'une recette
-   * @param recipe
-   *          la recette que l'on va afficher
+   * @param idRecipe
+   *          id de la recette que l'on va afficher
    */
-  goRecipe(recipe: Recipe) : void{
-      
-      this.router.navigate(["a-recipe"],{queryParams : {"idRecipe" : recipe.recipeId}});
+  goRecipe(idRecipe: String) : void{
+
+      this.router.navigate(["a-recipe"],{queryParams : {"idRecipe" : idRecipe}});
       
 
   }
