@@ -4,6 +4,11 @@
 export interface Recipe{
 
 /**
+* l'id firebase de la recette
+*/
+recipeId : String;
+
+/**
  * le nom de la recette
  */
 

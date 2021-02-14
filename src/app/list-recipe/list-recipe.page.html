@@ -4,11 +4,11 @@
   </ion-toolbar>
 </ion-header>
 <p>
-  {{this.liste.length}} recettes
+  {{this.list.length}} recettes
 </p>
 
 <ion-content>
-  <recipe  *ngFor="let item of this.liste" 
-  [aRecipe]="item"></recipe>
+  <recipe  *ngFor="let item of this.list" 
+  [aRecipe]="item" (click)="goRecipe(item)"></recipe>
 
 </ion-content>
