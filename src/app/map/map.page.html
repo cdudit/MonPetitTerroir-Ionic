@@ -1,21 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Périmètre de distance</ion-title>
+    <ion-title>Choix du périmètre</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div id="map"></div>
-  <ion-item>
-    Kilomètres :
-    <ion-range min="1" max="30" color="primary" pin="true" (ionChange)="onChange($event)">
-      <ion-label slot="start">1</ion-label>
-      <ion-label slot="end">30</ion-label>
-    </ion-range>
-  </ion-item>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="checkmark-circle-outline" (click)="submit()"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <ion-range min="1" max="30" color="primary" pin="true" (ionChange)="onChange($event)">
+  </ion-range>
 </ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="checkmark-circle-outline" (click)="submit()"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

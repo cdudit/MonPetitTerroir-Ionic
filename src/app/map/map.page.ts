@@ -55,6 +55,9 @@ export class MapPage implements OnInit {
     });
   }
 
+  /**
+   * Affichage du cercle avec le radius
+   */
   displayCircle() {
     // On supprime le dernier cercle
     if (this.circle != null) {
