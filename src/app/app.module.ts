@@ -10,6 +10,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,11 @@ import { AppComponent } from './app.component';
     AngularFireModule.initializeApp(environment.firebaseConfig, 'mon-petit-terroir'),
     AngularFirestoreModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Geolocation],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Geolocation,
+    NativeGeocoder
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
