@@ -23,7 +23,7 @@ listIngredients : Map<String,BigInteger>;
  /**
   * la liste des etapes de la recettes
   */
- listStep : Array<String>;
+ listSteps : Array<String>;
 
  /**
   * le lien de l'image associé

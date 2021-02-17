@@ -34,6 +34,11 @@ export class ARecipePage implements OnInit {
   arrayAmount : Array<BigInteger>;
 
   /**
+   * la liste des etapes
+   */
+  arraySteps : Array<String>;
+
+  /**
    * booléen si on affiche ou non la liste des ingrédients
    */
   isDisplayingIngredients: Boolean=true;
@@ -56,8 +61,9 @@ export class ARecipePage implements OnInit {
   ngOnInit() {
     this.isDisplayingIngredients=true;
 
-    //J'initialise ma liste d'ingrédient
+    //J'initialise ma liste d'ingrédient et ma liste des étapes de la recette
     this.arrayIngredients=Array();
+    this.arraySteps=Array();
         
     //Si je n'ai pas déjà recupéré la recette
     if(!this.recipeDisplay){
@@ -72,11 +78,14 @@ export class ARecipePage implements OnInit {
           //je vais rechercher ma recette dans firestore
           return this.serviceFirebase.getRecipeById(params['idRecipe']).pipe(
             mergeMap(recipe=>{
-              
-              
 
               //Je recupere la recette 
               this.recipeDisplay=recipe;
+
+              //je recupere les etapes
+              this.arraySteps=this.recipeDisplay.listSteps;
+              console.log(this.arraySteps);
+              
 
               //je recupere les quantites des ingredients
               this.arrayAmount=Object.values(this.recipeDisplay.listIngredients);
@@ -119,10 +128,10 @@ export class ARecipePage implements OnInit {
    }
    else{
     this.isDisplayingIngredients=false;
+    
+    
    }
    
   }
-
-  
 
 }

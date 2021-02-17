@@ -23,10 +23,12 @@
         <span *ngIf="arrayIngredients[index+1] && this.recipeDisplay || async">{{this.arrayAmount[index+1]}} g</span>
       </ion-col>
     </ion-row>
-   
-   
   </div>
     </ion-grid>
+    <div *ngIf="!isDisplayingIngredients">
+      <div  *ngFor="let step of arraySteps"><span>{{step}}</span><br></div>
+    </div>
+    
   
  
 </ion-content>
