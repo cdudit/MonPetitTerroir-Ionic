@@ -1,0 +1,27 @@
+ion-content {
+    --ion-background-color: #F2E4E5;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: x-large;
+    text-align: center;
+    color: black;
+}
+
+lottie-player {
+    height: 70%;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ion-button {
+    width: 50%;
+    text-transform: uppercase;
+    color: #F2E4E5;
+    --box-shadow: 0px 0px 5px black;
+}
