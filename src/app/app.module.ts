@@ -11,6 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'mon-petit-terroir'),
     AngularFirestoreModule

@@ -5,6 +5,7 @@ import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
 import { Seller } from '../model/Seller';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-map',
@@ -27,7 +28,8 @@ export class MapPage implements OnInit {
     public geolocation: Geolocation,
     public router: Router,
     public firebase: FirebaseService,
-    public nativeGeocoder: NativeGeocoder
+    public nativeGeocoder: NativeGeocoder,
+    public storage: Storage
   ) { }
 
   /**
@@ -114,8 +116,9 @@ export class MapPage implements OnInit {
    * Clique pour valider
    */
   submit() {
-    // TODO : local storage
+    // Enregistrement des valeurs dans le local storage
+    this.storage.set('userLatLng', { lat: this.lat, lng: this.lng });
+    this.storage.set('maxKmAround', this.km);
     this.router.navigate(['/tabs/tab1']);
   }
-
 }
