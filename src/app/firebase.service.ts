@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Recipe } from './model/Recipe';
+import { Ingredient } from './model/Ingredient';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,15 @@ export class FirebaseService {
    */
   public getRecipeById(id: String):  Observable<Recipe> {
     return this.fireStore.doc<Recipe>('recipes/' + id).valueChanges( {idField: 'recipeId' });
+  }
+
+
+  /**
+   * Récupération d'un ingrédient par identifiant
+   * @param id l'identifiant de l'ingrédient
+   */
+  public getIngredientById(id : String) : Observable<Ingredient>{
+
+    return this.fireStore.doc<Ingredient>('ingredients/' + id).valueChanges( {idField: 'ingredientId' });
   }
 }

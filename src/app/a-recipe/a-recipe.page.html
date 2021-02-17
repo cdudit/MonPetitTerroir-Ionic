@@ -1,20 +1,39 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="this.recipeDisplay || async">{{this.recipeDisplay.name}}</ion-title>
+    <ion-title *ngIf="this.recipeDisplay || async">{{this.recipeDisplay.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-content overflow-scroll="true">
 
-<ion-img  *ngIf="this.recipeDisplay || async" src={{this.recipeDisplay.srcPic}}></ion-img>
-  <ion-grid class="align-top">
-    <ion-row>
+  <ion-img  *ngIf="this.recipeDisplay || async" src={{this.recipeDisplay.srcPic}}></ion-img>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="ingredients">Ingrédients</ion-segment-button>
+    <ion-segment-button value="recipe">Recette</ion-segment-button>
+  </ion-segment>
+  <ion-grid>
+    <div *ngFor="let ingredient of arrayIngredients; let index = index; let isFirst = first; let isOdd = odd;">
+    <ion-row *ngIf="!isOdd">
       <ion-col>
-        <ion-button>Ingrédients</ion-button>
+        <ion-img  src={{ingredient.srcPic}}></ion-img>
       </ion-col>
-      <ion-col>
-        <ion-button>Recette</ion-button>
+      <ion-col >
+        <ion-img *ngIf="arrayIngredients[index+1] " src={{arrayIngredients[index+1].srcPic}}></ion-img>
       </ion-col>
     </ion-row>
+   
+   
+  </div>
     </ion-grid>
+  
+ 
+</ion-content>
+
+<ion-toolbar>
+  
+</ion-toolbar>
+
+  
+
 
 
