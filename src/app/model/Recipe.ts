@@ -15,9 +15,10 @@ recipeId : String;
  name : String;
 
  /**
-  * la liste des ingredients
+  * la liste des ingredients lié a la quantié
+  * dictionnaire id d'ingrédient -> quantité 
   */
-listIngredients : Array<String>;
+listIngredients : Map<String,BigInteger>;
 
  /**
   * la liste des etapes de la recettes

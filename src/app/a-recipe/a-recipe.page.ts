@@ -29,6 +29,16 @@ export class ARecipePage implements OnInit {
   arrayIngredients : Array<Ingredient>;
 
   /**
+   * la liste des quantité des ingrédients lié à la recette
+   */
+  arrayAmount : Array<BigInteger>;
+
+  /**
+   * booléen si on affiche ou non la liste des ingrédients
+   */
+  isDisplayingIngredients: Boolean=true;
+
+  /**
    * le constructeur
    * @param route 
    *        la route, utile pour recuperer l'id du document firestore dans la recette 
@@ -44,6 +54,7 @@ export class ARecipePage implements OnInit {
    * (recupere dans les parametres de la route)
    */
   ngOnInit() {
+    this.isDisplayingIngredients=true;
 
     //J'initialise ma liste d'ingrédient
     this.arrayIngredients=Array();
@@ -52,8 +63,7 @@ export class ARecipePage implements OnInit {
     if(!this.recipeDisplay){
       //alors je vais la chercher dans le firestore
 
-      //j'initialise un tableau d'ingrédient à vide
-      let listIng=Array();
+      
       
       //je recupere l'id firestore de ma recette  
        this.route.queryParams.pipe(
@@ -62,36 +72,38 @@ export class ARecipePage implements OnInit {
           //je vais rechercher ma recette dans firestore
           return this.serviceFirebase.getRecipeById(params['idRecipe']).pipe(
             mergeMap(recipe=>{
+              
+              
 
               //Je recupere la recette 
               this.recipeDisplay=recipe;
 
-              //je retourne sa liste d'id firestore d'ingrédient 
-              return recipe.listIngredients
+              //je recupere les quantites des ingredients
+              this.arrayAmount=Object.values(this.recipeDisplay.listIngredients);
+              
+              //je retourne la liste d'id firestore d'ingrédient 
+              return Object.keys(recipe.listIngredients);
              
             }))
           
         })
         //pour chaque id d'ingredient
-      ).forEach(idIngredient=>
+      ).forEach(idIngredient=>{
+        
+        
                 //je recherche l'objet ingrédient dans la base 
                 this.serviceFirebase.getIngredientById(idIngredient).subscribe(element=>{
+                  
                   //je l'ajoute a notre liste d'ingrédient que l'on va afficher
                   //j'ai rajouté une condition qui vérifie que la liste d'ingrédient 
                   //n'est pas plus longue que la liste d'id d'ingrédient 
                   //car je me retrouve parfois dans le cas ou le dernier element s'ajoute deux fois
                   //un peu de manière aléatoire, cette condition bloque cela
-                      if(this.arrayIngredients.length<this.recipeDisplay.listIngredients.length){
+                      if(this.arrayIngredients.length<Object.keys(this.recipeDisplay.listIngredients).length){
                         this.arrayIngredients.push(element)
                       }
-                      }));
-      
-      
-      
-      
-      
-        
-
+                      })});
+   
     }
  
   
@@ -102,8 +114,13 @@ export class ARecipePage implements OnInit {
    * @param $event 
    */
   segmentChanged($event){
-   // console.log(event.detail.value);
-   //TODO A FINIR
+   if(event.detail.value==="ingredients"){
+    this.isDisplayingIngredients=true;
+   }
+   else{
+    this.isDisplayingIngredients=false;
+   }
+   
   }
 
   

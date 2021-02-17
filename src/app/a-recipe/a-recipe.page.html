@@ -11,14 +11,16 @@
     <ion-segment-button value="ingredients">Ingrédients</ion-segment-button>
     <ion-segment-button value="recipe">Recette</ion-segment-button>
   </ion-segment>
-  <ion-grid>
+  <ion-grid *ngIf="isDisplayingIngredients">
     <div *ngFor="let ingredient of arrayIngredients; let index = index; let isFirst = first; let isOdd = odd;">
     <ion-row *ngIf="!isOdd">
       <ion-col>
         <ion-img  src={{ingredient.srcPic}}></ion-img>
+        <span *ngIf="this.recipeDisplay || async">{{this.arrayAmount[index]}} g</span>
       </ion-col>
       <ion-col >
         <ion-img *ngIf="arrayIngredients[index+1] " src={{arrayIngredients[index+1].srcPic}}></ion-img>
+        <span *ngIf="arrayIngredients[index+1] && this.recipeDisplay || async">{{this.arrayAmount[index+1]}} g</span>
       </ion-col>
     </ion-row>
    
