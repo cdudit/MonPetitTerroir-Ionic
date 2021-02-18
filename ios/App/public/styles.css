@@ -1,5 +1,13 @@
+@import url(https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito:wght@200&family=Playfair+Display&display=swap);
 /** Ionic CSS Variables **/
 :root {
+  /** pink - Notre couleur de fond principale **/
+  --ion-color-pink: #F2E4E5;
+  --ion-color-pink-rgb: 242, 228, 229;
+  --ion-color-pink-contrast: #ffffff;
+  --ion-color-pink-contrast-rgb: 255, 255, 255;
+  --ion-color-pink-shade: #F2E4E5;
+  --ion-color-pink-tint: #F2E4E5;
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -194,6 +202,7 @@
     --ion-card-background: #1e1e1e;
   }
 }
+
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
@@ -1227,5 +1236,6 @@ sub {
 .ion-align-items-baseline {
   align-items: baseline !important;
 }
+/* Import de la font Abril Fatface, Playfait Display et Nunito */
 
 /*# sourceMappingURL=styles.css.map*/

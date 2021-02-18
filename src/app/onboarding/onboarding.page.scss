@@ -7,22 +7,25 @@ ion-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 h1 {
+    font-family: 'Abril Fatface', cursive;
     text-transform: uppercase;
-    font-size: x-large;
+    font-size: 48px;
     text-align: center;
     color: black;
 }
 
 lottie-player {
+    margin: 5% 0;
     width: 100%;
-    height: 80%;
+    max-height: 50%;
 }
 
 .center {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
