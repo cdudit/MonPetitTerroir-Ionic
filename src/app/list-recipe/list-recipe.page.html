@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mon petit Terroir</ion-title>
+  </ion-toolbar>
+</ion-header>
+<p>
+  {{this.liste.length}} recettes
+</p>
+
+<ion-content>
+  <recipe  *ngFor="let item of this.liste" 
+  [aRecipe]="item"></recipe>
+
+</ion-content>
