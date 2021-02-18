@@ -1,0 +1,27 @@
+#map {
+    height: 100%;
+}
+
+ion-range {
+    position: absolute;
+    bottom: 20px;
+    width: 75%;
+    left: 10px;
+    z-index: 99999;
+    --knob-background: #3880ff;
+    background-color: #F2E4E5;
+    padding: 2px 20px;
+    border-radius: 20px;
+}
+
+ion-content {
+    position: relative;
+}
+
+ion-fab {
+    bottom: 15px;
+}
+
+.white {
+    color: white;
+}

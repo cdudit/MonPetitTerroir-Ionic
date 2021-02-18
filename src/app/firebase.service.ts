@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { Recipe } from './model/Recipe';
 import { Ingredient } from './model/Ingredient';
+import { Seller } from './model/Seller';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class FirebaseService {
   /**
    * Récupération de tous les points de vente
    */
-  public getSellers(): Observable<Recipe[]> {
-    return this.fireStore.collection<Recipe>('seller').valueChanges({ idField: 'sellerId' });
+  public getSellers(): Observable<Seller[]> {
+    return this.fireStore.collection<Seller>('seller').valueChanges({ idField: 'sellerId' });
   }
 
   /**

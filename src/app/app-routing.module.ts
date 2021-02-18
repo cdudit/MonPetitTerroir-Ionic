@@ -9,10 +9,15 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./list-recipe/list-recipe.module').then( m => m.ListRecipePageModule)
-  },  {
+  },
+  {
     path: 'a-recipe',
     loadChildren: () => import('./a-recipe/a-recipe.module').then( m => m.ARecipePageModule)
-  }
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./map/map.module').then(m => m.MapPageModule)
+  },
 
 
 ];
@@ -23,3 +28,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+
+
