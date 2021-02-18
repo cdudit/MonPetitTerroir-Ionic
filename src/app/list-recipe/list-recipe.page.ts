@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../model/Recipe';
+import { Router } from '@angular/router';
+import { FirebaseService } from '../firebase.service';
 
 
 @Component({
@@ -10,31 +12,43 @@ import { Recipe } from '../model/Recipe';
 export class ListRecipePage implements OnInit {
 
 /**
- * je mets une recette en dur pour le moment, cela changera lorsqu'on aura fais le lien avec firebase
+ * la liste des recette proposé
  */
-  liste:Array<Recipe>=[{
-    name :"Bannane Pomme" , 
-    listIngredients : ["Pomme", "Bannane"],
-    listStep:["Couper les pommes", "Couper les bannanes"],
-    srcPic:"assets/images/image.jpg"
-  },
-  {
-    name :"Bannane Pomme" , 
-    listIngredients : ["Pomme", "Bannane"],
-    listStep:["Couper les pommes", "Couper les bannanes"],
-    srcPic:"assets/images/image.jpg"
-  },
-  {
-    name :"Bannane Pomme" , 
-    listIngredients : ["Pomme", "Bannane"],
-    listStep:["Couper les pommes", "Couper les bannanes"],
-    srcPic:"assets/images/image.jpg"
-  }]
+  list:Array<Recipe>;
 
-  constructor() { }
+  /**
+   * constructeur
+   * @param router 
+   *        le routeur nous permettant de naviguer vers l'affichage d'une recette
+   * @param serviceFirebase
+   *        le service faisant le lien avec firebase
+   */
+  constructor(private router : Router, private serviceFirebase : FirebaseService) { }
+
   
-
+  
+/**
+ * methode onInit
+ */
   ngOnInit() {
+
+    //ici on recupere les recettes de firebase
+    if(!this.list){
+      this.serviceFirebase.getRecipes().subscribe(items=>this.list=items );
+     
+    }
+
   }
 
+  /**
+   * methode navigant vers l'affichage d'une recette
+   * @param idRecipe
+   *          id de la recette que l'on va afficher
+   */
+  goRecipe(idRecipe: String) : void{
+
+      this.router.navigate(["a-recipe"],{queryParams : {"idRecipe" : idRecipe}});
+      
+
+  }
 }

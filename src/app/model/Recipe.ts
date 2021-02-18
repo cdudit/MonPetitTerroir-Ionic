@@ -4,20 +4,26 @@
 export interface Recipe{
 
 /**
+* l'id firebase de la recette
+*/
+recipeId : String;
+
+/**
  * le nom de la recette
  */
 
  name : String;
 
  /**
-  * la liste des ingredients
+  * la liste des ingredients lié a la quantié
+  * dictionnaire id d'ingrédient -> quantité 
   */
-listIngredients : Array<String>;
+listIngredients : Map<String,BigInteger>;
 
  /**
   * la liste des etapes de la recettes
   */
- listStep : Array<String>;
+ listSteps : Array<String>;
 
  /**
   * le lien de l'image associé

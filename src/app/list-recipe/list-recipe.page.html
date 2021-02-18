@@ -3,12 +3,13 @@
     <ion-title>Mon petit Terroir</ion-title>
   </ion-toolbar>
 </ion-header>
-<p>
-  {{this.liste.length}} recettes
+
+<p *ngIf="this.list || async ">  
+  {{this.list.length}} recettes
 </p>
 
-<ion-content>
-  <recipe  *ngFor="let item of this.liste" 
-  [aRecipe]="item"></recipe>
+<ion-content *ngIf="this.list || async ">
+  <recipe  *ngFor="let item of this.list" 
+  [aRecipe]="item" (click)="goRecipe(item.recipeId)"></recipe>
 
 </ion-content>
