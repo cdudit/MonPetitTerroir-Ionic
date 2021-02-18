@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start"> <ion-back-button></ion-back-button></ion-buttons>
     <ion-title *ngIf="this.recipeDisplay || async">{{this.recipeDisplay.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -25,8 +26,8 @@
     </ion-row>
   </div>
     </ion-grid>
-    <div *ngIf="!isDisplayingIngredients">
-      <div  *ngFor="let step of arraySteps"><span>{{step}}</span><br></div>
+    <div *ngIf="!isDisplayingIngredients" class="center">
+      <div  *ngFor="let step of arraySteps;  let index = index;" class="display-steps"><span>{{index}} -- {{step}}</span><br></div>
     </div>
     
   

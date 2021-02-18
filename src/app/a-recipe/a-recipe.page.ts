@@ -84,7 +84,7 @@ export class ARecipePage implements OnInit {
 
               //je recupere les etapes
               this.arraySteps=this.recipeDisplay.listSteps;
-              console.log(this.arraySteps);
+              
               
 
               //je recupere les quantites des ingredients
@@ -123,7 +123,8 @@ export class ARecipePage implements OnInit {
    * @param $event 
    */
   segmentChanged($event){
-   if(event.detail.value==="ingredients"){
+
+   if($event.detail.value==="ingredients"){
     this.isDisplayingIngredients=true;
    }
    else{
