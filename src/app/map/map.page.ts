@@ -119,6 +119,6 @@ export class MapPage implements OnInit {
     // Enregistrement des valeurs dans le local storage
     this.storage.set('userLatLng', { lat: this.lat, lng: this.lng });
     this.storage.set('maxKmAround', this.km);
-    this.router.navigate(['/tabs/tab1']);
+    this.router.navigate(['/recipes']);
   }
 }
