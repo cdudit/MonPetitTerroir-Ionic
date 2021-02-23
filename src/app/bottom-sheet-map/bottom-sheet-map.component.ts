@@ -8,7 +8,7 @@ import { GestureController, GestureConfig, Gesture } from '@ionic/angular';
 })
 export class BottomSheetMapComponent implements AfterViewInit {
   state = 'bottom';
-  handleHeight = 138;
+  handleHeight = 200;
 
   constructor(
     private gestureCtrl: GestureController,

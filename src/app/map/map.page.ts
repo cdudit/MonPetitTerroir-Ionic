@@ -14,7 +14,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class MapPage implements OnInit {
   map: Map;
-  selectedSeller: Seller;
+  selectedSeller: Seller = null;
 
   constructor(
     public geolocation: Geolocation,
@@ -29,13 +29,20 @@ export class MapPage implements OnInit {
    */
   ngOnInit() {
     // Affichage de l'alerte
-    this.presentAlert()
+    this.presentLoading();
+
+    // Récupération du point de vente sélectionné s'il existe
+    this.storage.get('seller').then((value: Seller) => {
+      if (value) {
+        this.selectedSeller = value;
+      }
+    });
 
     // Récupération de la position
     this.geolocation.getCurrentPosition().then((resp: Geoposition) => {
 
       // Affichage de la map
-      this.map = new Map("map").setView([resp.coords.latitude, resp.coords.longitude], 10);
+      this.map = new Map('map').setView([resp.coords.latitude, resp.coords.longitude], 10);
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © <a href="https://www.openstreetmap.org/" > OpenStreetMap < /a> contributors,  <a href="https://creativecommons.org/licenses/by-sa/2.0/" > CC - BY - SA < /a>'
       }).bindPopup('Vous êtes ici').openPopup()
@@ -44,6 +51,7 @@ export class MapPage implements OnInit {
       // Affichage du marker avec la position
       marker({ lat: resp.coords.latitude, lng: resp.coords.longitude })
         .addTo(this.map)
+        .bindPopup('Vous êtes ici').openPopup();
 
       // Récupération des producteurs stockés sur firebase
       this.firebase.getSellers().subscribe((sellers: Array<Seller>) => {
@@ -51,17 +59,17 @@ export class MapPage implements OnInit {
 
           // Affichage d'un marker par point de vente
           marker({ lat: seller.geoloc.latitude, lng: seller.geoloc.longitude })
-            .bindPopup(String(seller.name)).openPopup()
             .addTo(this.map)
-            .on('click', function () {
+            .bindTooltip(String(seller.name))
+            .on('click', () => {
               // Récupération du point de vente sélectionné
               this.selectedSeller = seller;
             });
-        })
-      })
+        });
+      });
 
       // On enlève l'alerte puisque la map est chargée
-      this.alertController.dismiss()
+      this.alertController.dismiss();
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -72,15 +80,34 @@ export class MapPage implements OnInit {
    * Clique pour valider
    */
   submit() {
-    // Enregistrement des valeurs dans le local storage
-    this.storage.set('seller', this.selectedSeller);
-    this.router.navigate(['/recipes']);
+    console.log(this.selectedSeller);
+    // Vérification afin de s'assurer que l'utilisateur a bien sélectionné un point de vente
+    if (this.selectedSeller == null) {
+      this.presentAlert();
+    } else {
+      // Enregistrement des valeurs dans le local storage et redirection
+      this.storage.set('seller', this.selectedSeller);
+      this.router.navigate(['/recipes']);
+    }
+  }
+
+  /**
+   * Affichage de l'alerte pour sélectionner un point de vnete
+   */
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Attention',
+      message: 'Veuillez sélectionner un point de vente',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   /**
    * Affichage de l'alerte pour le chargement
    */
-  async presentAlert() {
+  async presentLoading() {
     const alert = await this.alertController.create({
       header: 'Chargement de la carte, veuillez patienter',
       message: '<ion-spinner></ion-spinner>',
