@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BottomSheetMapComponent } from '../bottom-sheet-map/bottom-sheet-map.component';
 
 import { MapPage } from './map.page';
 
@@ -12,6 +13,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule, BottomSheetMapComponent],
 })
-export class MapPageRoutingModule {}
+export class MapPageRoutingModule { }
