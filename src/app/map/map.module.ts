@@ -17,4 +17,4 @@ import { MapPage } from './map.page';
   ],
   declarations: [MapPage]
 })
-export class MapPageModule {}
+export class MapPageModule { }

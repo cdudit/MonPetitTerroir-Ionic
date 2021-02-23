@@ -1,3 +1,5 @@
+import { Coordinates } from "@ionic-native/geolocation/ngx";
+
 /**
  * Interface concernant un point de vente
  */
@@ -30,5 +32,13 @@ export interface Seller {
     /**
      * Localisation
      */
-    geoloc: GeolocationCoordinates;
+    geoloc: Coordinates;
+}
+
+/**
+ * Interface concernant les coordonnées d'un point de vente
+ */
+export interface SellerCoordinates {
+    lat: number;
+    lng: number;
 }

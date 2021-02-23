@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Map, tileLayer, marker, circle, Circle, Marker } from 'leaflet';
-import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { Map, tileLayer, marker } from 'leaflet';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
@@ -15,6 +14,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class MapPage implements OnInit {
   map: Map;
+  selectedSeller: Seller;
 
   constructor(
     public geolocation: Geolocation,
@@ -28,10 +28,12 @@ export class MapPage implements OnInit {
    * Lors de l'initialisation de la page
    */
   ngOnInit() {
+    // Affichage de l'alerte
     this.presentAlert()
 
     // Récupération de la position
     this.geolocation.getCurrentPosition().then((resp: Geoposition) => {
+
       // Affichage de la map
       this.map = new Map("map").setView([resp.coords.latitude, resp.coords.longitude], 10);
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -51,13 +53,16 @@ export class MapPage implements OnInit {
           marker({ lat: seller.geoloc.latitude, lng: seller.geoloc.longitude })
             .bindPopup(String(seller.name)).openPopup()
             .addTo(this.map)
-            .on('click', function (e) {
-              console.log(this);
+            .on('click', function () {
+              // Récupération du point de vente sélectionné
+              this.selectedSeller = seller;
             });
         })
       })
 
+      // On enlève l'alerte puisque la map est chargée
       this.alertController.dismiss()
+
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -68,7 +73,7 @@ export class MapPage implements OnInit {
    */
   submit() {
     // Enregistrement des valeurs dans le local storage
-    this.storage.set('seller', '');
+    this.storage.set('seller', this.selectedSeller);
     this.router.navigate(['/recipes']);
   }
 
@@ -77,7 +82,7 @@ export class MapPage implements OnInit {
    */
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Affichage de la carte, veuillez patienter',
+      header: 'Chargement de la carte, veuillez patienter',
       message: '<ion-spinner></ion-spinner>',
     });
 
