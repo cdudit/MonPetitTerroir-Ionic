@@ -26,4 +26,9 @@ export interface Seller {
      * Adresse
      */
     address: String;
+
+    /**
+     * Localisation
+     */
+    geoloc: GeolocationCoordinates;
 }
