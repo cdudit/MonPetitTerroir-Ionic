@@ -80,7 +80,6 @@ export class MapPage implements OnInit {
    * Clique pour valider
    */
   submit() {
-    console.log(this.selectedSeller);
     // Vérification afin de s'assurer que l'utilisateur a bien sélectionné un point de vente
     if (this.selectedSeller == null) {
       this.presentAlert();
